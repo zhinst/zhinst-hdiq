@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "zhinst-hdiq"
+version = "1.0.0-dev"
+description = "API for Zurich Instruments HDIQ devices"
+authors = ["Zurich Instruments AG <info@zhinst.com>"]
+maintainers = ["Matthias Berg <matthias.berg@zhinst.com>", "Andrea Nocco <andrea.nocco@zhinst.com>", "Benjamin Schmid <benjamin.schmid@zhinst.com>"]
+packages = [
+  { include = "zhinst" },
+]
+readme = "README.md"
+homepage = "https://www.zhinst.com/products/hdiq-iq-modulator"
+
+[tool.poetry.dependencies]
+ifaddr = "^0.1.7"
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vsc = "git"
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+build-backend = "poetry.core.masonry.api"

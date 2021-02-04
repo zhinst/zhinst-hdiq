@@ -1,0 +1,9 @@
+.idea/*
+venv
+MANIFEST
+/poetry.lock
+.vscode/**
+**/__pycache__/**
+/dist/*
+.pylintrc
+docs/_build/**
