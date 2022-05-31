@@ -17,7 +17,9 @@ def discover_devices(timeout: int = 5) -> list:
     ip_networks = _get_ip_list()
 
     for ip in ip_networks:
-        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP) as sock:
+        with socket.socket(
+            socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP
+        ) as sock:
             sock.settimeout(timeout)
             sent, port = _discovery_multicast(ip, sock)
             if sent:
@@ -61,7 +63,7 @@ def _get_local_ip(ip: str, port: int = 80) -> str:
 
 def _receive_devices(port: int, sock: socket.socket, devices: list) -> list:
     """
-    After sending the device discovery request, collect all available 
+    After sending the device discovery request, collect all available
         devices
 
     Args:

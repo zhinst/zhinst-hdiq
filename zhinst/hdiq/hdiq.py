@@ -81,8 +81,7 @@ class Hdiq:
         request = f"getChannelStatus{channel}"
         return self._send_request(request)
 
-    def _send_command_loop(
-        self, command: str, is_request: bool = False):
+    def _send_command_loop(self, command: str, is_request: bool = False):
         """
         Try to send the command until success or timeout
 
@@ -125,7 +124,9 @@ class Hdiq:
             (str, bool): Returns str if there was a request,
                 otherwise bool
         """
-        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP) as sock:
+        with socket.socket(
+            socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP
+        ) as sock:
             sock.bind(self.local_ip_with_port)
             sock.setsockopt(socket.IPPROTO_IP, socket.IP_TTL, self._TTL)
             sock.sendto(str.encode(command), self.ip_with_port)
