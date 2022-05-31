@@ -125,21 +125,20 @@ class Hdiq:
             (str, bool): Returns str if there was a request,
                 otherwise bool
         """
-        sock = socket.socket(
-            socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
-        sock.bind(self.local_ip_with_port)
-        sock.setsockopt(socket.IPPROTO_IP, socket.IP_TTL, self._TTL)
-        sock.sendto(str.encode(command), self.ip_with_port)
-        ack = False
-        result = None
-        sock.settimeout(self.timeout)
-        try:
-            data, _ = sock.recvfrom(self.port)
-            if "ack" in data.decode("utf-8").lower():
-                ack = True
-                if is_request:
-                    data, _ = sock.recvfrom(self.port)
-                    result = data.decode("utf-8")
-        except socket.timeout:
-            pass
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP) as sock:
+            sock.bind(self.local_ip_with_port)
+            sock.setsockopt(socket.IPPROTO_IP, socket.IP_TTL, self._TTL)
+            sock.sendto(str.encode(command), self.ip_with_port)
+            ack = False
+            result = None
+            sock.settimeout(self.timeout)
+            try:
+                data, _ = sock.recvfrom(self.port)
+                if "ack" in data.decode("utf-8").lower():
+                    ack = True
+                    if is_request:
+                        data, _ = sock.recvfrom(self.port)
+                        result = data.decode("utf-8")
+            except socket.timeout:
+                pass
         return result if is_request else ack

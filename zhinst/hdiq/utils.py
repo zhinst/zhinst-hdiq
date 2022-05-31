@@ -17,12 +17,11 @@ def discover_devices(timeout: int = 5) -> list:
     ip_networks = _get_ip_list()
 
     for ip in ip_networks:
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
-        sock.settimeout(timeout)
-
-        sent, port = _discovery_multicast(ip, sock)
-        if sent:
-            devices = _receive_devices(port, sock, devices)
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP) as sock:
+            sock.settimeout(timeout)
+            sent, port = _discovery_multicast(ip, sock)
+            if sent:
+                devices = _receive_devices(port, sock, devices)
     return devices
 
 
@@ -54,10 +53,9 @@ def _get_local_ip(ip: str, port: int = 80) -> str:
     Returns:
         str: The local IP that can access the given remote IP
     """
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect((ip, port))
-    local_ip = s.getsockname()[0]
-    s.close()
+    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+        s.connect((ip, port))
+        local_ip = s.getsockname()[0]
     return local_ip
 
 
