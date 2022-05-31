@@ -1,33 +1,17 @@
-image: python:3.7
+default:
+  image: python:3.7
+  before_script:
+    - pip install poetry
+    - poetry config virtualenvs.create false
+    - poetry version $(git describe --tags --abbrev=0)
+    - poetry install
+  tags:
+    - linux
+    - docker
 
 stages:
-  # - test
-  # - lint
-  # - types
   - build
   - deploy
-
-before_script:
-  - pip install poetry
-  - poetry config virtualenvs.create false
-  - poetry version $(git describe --tags --abbrev=0)
-  - poetry install
-  # - pip list
-
-# Unit Tests:
-#   stage: test
-#   script:
-#     - poetry run pytest
-
-# Python Code Lint:
-#   stage: lint
-#   script:
-#     - poetry run black .
-
-# Static Type check:
-#   stage: types
-#   script:
-#     - poetry run mypy .
 
 build:
   stage: build
