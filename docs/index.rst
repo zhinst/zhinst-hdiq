@@ -13,6 +13,8 @@ API documentation
 
    source/modules
 
+.. include:: ../CHANGELOG.rst
+
 Indices and tables
 ==================
 
