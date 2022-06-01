@@ -10,7 +10,7 @@
 The `zhinst-hdiq` package is considered stable for general usage. The interface may be subject to incompatible changes between releases, which we will indicate by a change of the major version. Please check the [changelog](#changelog) if you are upgrading.
 
 ## Install
-Install the package with [pip](https://packaging.python.org/tutorials/installing-packages/):
+Install the package with [`pip`](https://packaging.python.org/tutorials/installing-packages/):
 
 ```sh
 $ pip install zhinst-hdiq
@@ -36,9 +36,6 @@ status = hdiq.get_channel_status(channel) # get status of channel 1
 print(f'channel {channel} -> {status}')
 ```
 
-## Changelog
-
-**v1.0.0**: Initial public release
 ## Contributing
 We welcome contributions by the community, either as bug reports, fixes and new code. Please use the GitHub issue tracker to report bugs or submit patches. Before developing something new, please get in contact with us.
 
