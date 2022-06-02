@@ -23,7 +23,7 @@ enable = true
 vsc = "git"
 
 [tool.poetry-dynamic-versioning.substitution]
-files = ["zhinst/\\hdiq/\\__init__.py"]
+files = ["zhinst/hdiq/__init__.py"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
