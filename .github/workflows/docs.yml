@@ -1,0 +1,40 @@
+name: Build docs
+
+on:
+  push:
+    branches: ["master"]
+    tags: 
+      - "v*.*.*"
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  generate-docs:
+    name: "Build package documentation"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout tag/branch"
+        uses: "actions/checkout@v3"
+        with: { fetch-depth: 0 }
+      - name: "Setup Python"
+        uses: "actions/setup-python@v3"
+        with:
+          python-version: "3.9"
+
+      - name: "Install build dependencies"
+        run: |
+          set -xe
+          python -m site
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade -r docs/requirements.txt
+          pip install .
+
+      - name: "Build docs"
+        run: |
+          cd docs && make html
+
+      - name: Store artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: docs
+          path: docs/_build/html
