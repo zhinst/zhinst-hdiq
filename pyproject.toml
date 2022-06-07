@@ -9,6 +9,7 @@ packages = [
 ]
 readme = "README.md"
 homepage = "https://www.zhinst.com/products/hdiq-iq-modulator"
+repository = "https://github.com/zhinst/zhinst-hdiq"
 
 [tool.poetry.dependencies]
 ifaddr = "^0.1.7"
