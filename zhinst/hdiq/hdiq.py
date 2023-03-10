@@ -36,7 +36,7 @@ class Hdiq:
             bool: True if `ACK` is received
         """
         command = f"setLOtoExp{channel}"
-        return self._send_command_loop(command)
+        return bool(self._send_command_loop(command))
 
     def set_rf_to_exp(self, channel: int) -> bool:
         """
@@ -49,7 +49,7 @@ class Hdiq:
             bool: True if `ACK` is received
         """
         command = f"setRFtoExp{channel}"
-        return self._send_command_loop(command)
+        return bool(self._send_command_loop(command))
 
     def set_rf_to_calib(self, channel: int) -> bool:
         """
@@ -62,7 +62,7 @@ class Hdiq:
             bool: True if `ACK` is received
         """
         command = f"setRFtoCalib{channel}"
-        return self._send_command_loop(command)
+        return bool(self._send_command_loop(command))
 
     def get_channel_status(self, channel: int) -> str:
         """
@@ -109,7 +109,10 @@ class Hdiq:
         Returns:
             str: Returns the corresponsing status
         """
-        return self._send_command_loop(request, is_request=True)
+        reply = self._send_command_loop(request, is_request=True)
+        if reply is None:
+            return ""
+        return str(reply)
 
     def _send_command(self, command: str, is_request: bool = False):
         """
